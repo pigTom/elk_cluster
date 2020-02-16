@@ -1,0 +1,41 @@
+version: "3"
+services:
+  es-master:
+    container_name: es-slave2
+    hostname: es-master
+    image: elasticsearch:7.1.1
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    # 配置网络模式
+    network_mode: "host"
+    volumes:
+      - ./es/conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./es/data:/usr/share/elasticsearch/data
+      - ./es/logs:/usr/share/elasticsearch/logs
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  filebeat:
+    # 容器名称
+    container_name: filebeat
+    # 主机名称
+    hostname: filebeat
+    # 镜像
+    image: docker.elastic.co/beats/filebeat:7.1.1
+    # 重启机制
+    restart: always
+    # 持久化挂载
+    volumes:
+      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      # 映射到容器中[作为数据源]
+      - ./logs:/home/project/spring-boot-elasticsearch/logs
+      - ./filebeat/logs:/usr/share/filebeat/logs
+      - ./filebeat/data:/usr/share/filebeat/data
+    # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
+#    links:
+#      - logstash
+    # 依赖服务[可无]
+    depends_on:
+      - es-slave2
