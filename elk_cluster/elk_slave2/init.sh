@@ -27,7 +27,7 @@ echo -e "${BLUE_COLOR}===> create directory success.${RES}"
 # 目录授权(data/logs 都要授读/写权限)
 echo -e "${BLUE_COLOR}---> directory authorize start.${RES}"
 if [ -d "./elasticsearch/" ]; then
-chmod 777 ./elasticsearch/data/ ./elasticsearch/logs/
+chmod 777 ./es/data/ ./es/logs/
 fi
 
 if [ -d "./filebeat/" ]; then
@@ -38,7 +38,7 @@ echo -e "${BLUE_COLOR}===> directory authorize success.${RES}"
 # 移动配置文件
 echo -e "${BLUE_COLOR}---> move [elasticsearch]config file start.${RES}"
 if [ -f "./elasticsearch.yml" ]; then
-mv ./elasticsearch.yml ./elasticsearch/conf
+mv ./elasticsearch.yml ./es/conf
 fi
 
 echo -e "${GREEN_COLOR}---> move [filebeat]config file start.${RES}"
