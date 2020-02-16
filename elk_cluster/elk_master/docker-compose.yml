@@ -23,7 +23,7 @@ services:
     # 配置网络模式
 #    network_mode: "host"
     volumes:
-      - ./es/conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./es/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./es/data:/usr/share/elasticsearch/data
       - ./es/logs:/usr/share/elasticsearch/logs
     environment:
