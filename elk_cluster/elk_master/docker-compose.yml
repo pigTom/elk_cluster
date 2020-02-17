@@ -111,7 +111,6 @@ services:
     restart: always
     working_dir: /home
     # 编译
-    build: .
     ports:
       - 6000:6000
     volumes:

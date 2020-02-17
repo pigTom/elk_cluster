@@ -46,8 +46,6 @@ services:
     image: registry.cn-hangzhou.aliyuncs.com/pigtom/pigtom:spring-boot-es
     restart: always
     working_dir: /home
-    # 编译
-    build: .
     ports:
       - 6000:6000
     volumes:
