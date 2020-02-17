@@ -52,6 +52,7 @@ services:
       - ./logs:/logs
     environment:
       - elasticsearch.hosts=http://192.168.0.110:9200
+      - PATH=$PATH:/usr/java/jdk/jre1.8.0_241/bin
       - "TZ=Asia/Shanghai"
     depends_on:
       - es-master
