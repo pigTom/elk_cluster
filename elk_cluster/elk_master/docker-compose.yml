@@ -117,7 +117,8 @@ services:
       - ./logs:/logs
     environment:
       - elasticsearch.hosts=http://192.168.0.110:9200
-      - "TZ=Asia/Shanghai"
+      - TZ=Asia/Shanghai
+      - PATH=$PATH:/usr/java/jdk/jre1.8.0_241/bin
     depends_on:
       - es-master
     command: java -Xmx200m -jar /app/spring-boot-elasticsearch-1.0.1-SNAPSHOT.jar
