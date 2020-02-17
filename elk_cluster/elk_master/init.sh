@@ -14,8 +14,8 @@ echo -e "${BLUE_COLOR}# ########################################################
 
 # 创建目录
 echo -e "${BLUE_COLOR}---> create [es] directory start.${RES}"
-if [ ! -d "./elasticsearch/" ]; then
-mkdir -p ./elasticsearch/conf ./elasticsearch/data ./elasticsearch/logs
+if [ ! -d "./es/" ]; then
+mkdir -p ./es/conf ./es/data ./es/logs
 fi
 
 echo -e "${RED_COLOR}---> create [kibana] directory start.${RES}"
@@ -41,8 +41,8 @@ echo -e "${BLUE_COLOR}===> create directory success.${RES}"
 
 # 目录授权(data/logs 都要授读/写权限)
 echo -e "${BLUE_COLOR}---> directory authorize start.${RES}"
-if [ -d "./elasticsearch/" ]; then
-chmod 777 ./elasticsearch/data/ ./elasticsearch/logs/
+if [ -d "./es/" ]; then
+chmod 777 ./es/data/ ./es/logs/
 fi
 
 if [ -d "./filebeat/" ]; then
@@ -51,9 +51,9 @@ fi
 echo -e "${BLUE_COLOR}===> directory authorize success.${RES}"
 
 # 移动配置文件
-echo -e "${BLUE_COLOR}---> move [elasticsearch]config file start.${RES}"
+echo -e "${BLUE_COLOR}---> move [es]config file start.${RES}"
 if [ -f "./elasticsearch.yml" ]; then
-mv ./elasticsearch.yml ./elasticsearch/conf
+mv ./elasticsearch.yml ./es/conf
 fi
 
 echo -e "${RED_COLOR}---> move [kibana] config file start.${RES}"
