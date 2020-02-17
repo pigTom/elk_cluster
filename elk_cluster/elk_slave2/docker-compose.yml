@@ -39,3 +39,18 @@ services:
     # 依赖服务[可无]
     depends_on:
       - es-slave2
+
+
+  spring-boot-elasticsearch:
+    container_name: spring-boot-elasticsearch
+    restart: always
+    working_dir: /home
+    # 编译
+    build: .
+    ports:
+      - 6000:6000
+    volumes:
+      - ./logs:/logs
+    depends_on:
+      - es-slave1
+    command: mvn spring-boot:run -Dspring-boot.run.profiles=docker
