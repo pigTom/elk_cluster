@@ -39,7 +39,6 @@ services:
 
   spring-boot-elasticsearch:
     container_name: spring-boot-elasticsearch
-    hostname: spring-boot-elasticsearch
     restart: always
     working_dir: /home
     # 编译
