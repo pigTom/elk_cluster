@@ -50,5 +50,4 @@ echo -e "${GREEN_COLOR}>>>>>>>>>>>>>>>>>> The End <<<<<<<<<<<<<<<<<<${RES}"
 
 # 部署项目
 echo -e "${BLUE_COLOR}==================> Docker deploy Start <==================${RES}"
-docker-compose down
-docker-compose up
+docker-compose down & docker-compose up
