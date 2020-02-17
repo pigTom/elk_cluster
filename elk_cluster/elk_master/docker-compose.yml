@@ -7,6 +7,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    environment:
+      - "TZ=Asia/Shanghai"
     volumes:
       - ./nginx/www:/usr/share/nginx/html
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
@@ -28,6 +30,8 @@ services:
       - ./es/logs:/usr/share/elasticsearch/logs
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "TZ=Asia/Shanghai"
+
     depends_on:
             - nginx
 
@@ -39,6 +43,9 @@ services:
       - 9100:9100
     depends_on:
       - es-master
+    environment:
+      - "TZ=Asia/Shanghai"
+
 
   kibana:
     container_name: kibana
@@ -50,6 +57,7 @@ services:
     volumes:
       - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
     environment:
+      - "TZ=Asia/Shanghai"
       - elasticsearch.hosts=http://192.168.1.6:9200
     depends_on:
       - es-master
@@ -73,6 +81,8 @@ services:
     # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
     links:
       - logstash
+    environment:
+      - "TZ=Asia/Shanghai"
     # 依赖服务[可无]
     depends_on:
       - es-master
@@ -89,6 +99,7 @@ services:
       - ./logstash/conf/logstash.yml:/usr/share/logstash/config/logstash.yml
     environment:
       - elasticsearch.hosts=http://192.168.0.110:9200
+      - "TZ=Asia/Shanghai"
     ports:
       - 5044:5044
     depends_on:
@@ -96,6 +107,7 @@ services:
 
   spring-boot-elasticsearch:
     container_name: spring-boot-elasticsearch
+    image: registry.cn-hangzhou.aliyuncs.com/pigtom/pigtom:spring-boot-es
     restart: always
     working_dir: /home
     # 编译
@@ -104,6 +116,9 @@ services:
       - 6000:6000
     volumes:
       - ./logs:/logs
+    environment:
+      - elasticsearch.hosts=http://192.168.0.110:9200
+      - "TZ=Asia/Shanghai"
     depends_on:
       - es-master
-    command: mvn spring-boot:run -Dspring-boot.run.profiles=docker
+    command: java -Xmx200m -jar /app/spring-boot-elasticsearch-1.0.1-SNAPSHOT.jar

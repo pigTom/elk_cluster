@@ -1,6 +1,5 @@
-FROM java:8
+FROM registry.cn-hangzhou.aliyuncs.com/pigtom/pigtom:java8
 LABEL Description="This image is just for test" Vendor="pigtom" Version="1.0"
 VOLUME /tmp
-ADD ../elk_master/spring-boot-elasticsearch-1.0.1-SNAPSHOT.jar /app/
-ENTRYPOINT ["java", "-Xmx200m", "-jar", "/app/spring-boot-elasticsearch-1.0.1-SNAPSHOT.jar"]
+ADD spring-boot-elasticsearch-1.0.1-SNAPSHOT.jar /app/
 EXPOSE 6000

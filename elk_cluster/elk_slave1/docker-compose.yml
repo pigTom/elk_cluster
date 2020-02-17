@@ -15,6 +15,7 @@ services:
       - ./es/data:/usr/share/elasticsearch/data
       - ./es/logs:/usr/share/elasticsearch/logs
     environment:
+      - "TZ=Asia/Shanghai"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
   filebeat:
@@ -33,20 +34,26 @@ services:
       - ./logs:/home/project/spring-boot-elasticsearch/logs
       - ./filebeat/logs:/usr/share/filebeat/logs
       - ./filebeat/data:/usr/share/filebeat/data
+    environment:
+      - "TZ=Asia/Shanghai"
     # 依赖服务[可无]
     depends_on:
       - es-slave1
 
   spring-boot-elasticsearch:
     container_name: spring-boot-elasticsearch
+    image: registry.cn-hangzhou.aliyuncs.com/pigtom/pigtom:spring-boot-es
     restart: always
     working_dir: /home
     # 编译
     build: .
     ports:
-      - "6000:6000"
+      - 6000:6000
     volumes:
       - ./logs:/logs
+    environment:
+      - elasticsearch.hosts=http://192.168.0.110:9200
+      - "TZ=Asia/Shanghai"
     depends_on:
-      - es-slave1
-    command: mvn spring-boot:run -Dspring-boot.run.profiles=docker
+      - es-master
+    command: java -Xmx200m -jar /app/spring-boot-elasticsearch-1.0.1-SNAPSHOT.jar

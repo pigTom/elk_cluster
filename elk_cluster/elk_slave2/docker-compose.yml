@@ -43,6 +43,7 @@ services:
 
   spring-boot-elasticsearch:
     container_name: spring-boot-elasticsearch
+    image: registry.cn-hangzhou.aliyuncs.com/pigtom/pigtom:spring-boot-es
     restart: always
     working_dir: /home
     # 编译
@@ -51,6 +52,9 @@ services:
       - 6000:6000
     volumes:
       - ./logs:/logs
+    environment:
+      - elasticsearch.hosts=http://192.168.0.110:9200
+      - "TZ=Asia/Shanghai"
     depends_on:
-      - es-slave1
-    command: mvn spring-boot:run -Dspring-boot.run.profiles=docker
+      - es-slave2
+    command: java -Xmx200m -jar /app/spring-boot-elasticsearch-1.0.1-SNAPSHOT.jar
